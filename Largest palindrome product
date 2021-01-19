@@ -1,0 +1,48 @@
+# two numbers, range as per digit length: 10-99;
+#cannot be 10/20/30... since they will all end in 0 and our palindrome cannot end in 0
+
+max_pali = 0
+num1 = 0
+num2 = 0
+
+
+print('This programme will give you the largest palindrome of the product of two numbers')
+inp = int(input('Enter how many digit numbers?'))
+
+start = 10**(inp-1)+1
+end = 10**inp -1
+
+print('range from: ', start,'to',end)
+
+for i in range (start,end+1):
+    if(i%10 ==0):
+        continue
+    for j in range(i+1,end+1):
+        if (j%10 ==0):
+            continue
+        match = 0
+        prod = i*j
+        s = str(prod)
+        l = len(s)
+        if l%2 == 0:
+            midl = l/2
+        else:
+            midl = l/2+1
+        for x in range(0,midl+1):
+            if (s[x:(x+1)] != s[(l-x-1):(l-x)]):
+                break
+            else:
+                match = match +1
+                #print(i,j,s, 'matched digits=',match,x,(l-x), s[x:(x+1)],s[(l-x-1):(l-x)])
+                continue
+        if (match == midl+1):
+            max_pali = max(prod, max_pali)
+            #print('max_pali=',max_pali)
+            if(prod == max_pali):
+                num1 = i
+                num2 = j
+                print(num1,num2,'prod = ', prod, 'max_pali=', max_pali)
+
+
+
+print(num1, 'X', num2,'=', max_pali, 'is a palindrome')
